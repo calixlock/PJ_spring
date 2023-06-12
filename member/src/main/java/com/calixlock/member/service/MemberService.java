@@ -7,6 +7,8 @@ import com.calixlock.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,16 @@ public class MemberService {
         }
 
 
+    }
+    //entityList 객체의 데이터를 dtoList 객체로 변환해 controller로 전달
+    public List<MemberDTO> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity memberEntity : memberEntityList) {
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+//            memberDTOList.add(memberDTO)
+            memberDTOList.add(MemberDTO.toMemberDTO(memberEntity));
+        }
+        return memberDTOList;
     }
 }

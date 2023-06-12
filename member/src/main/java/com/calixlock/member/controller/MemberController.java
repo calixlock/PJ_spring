@@ -5,12 +5,14 @@ import com.calixlock.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor // 객체 주입 방식
@@ -58,6 +60,14 @@ public class MemberController {
             return "login";
         }
 
+    }
+    // db에 있는 전체 값을 가져온다
+    @GetMapping("/member")
+    //svelet에서 request영역의 data를 jsp 같은 템플릿엔진으로 가져가 뿌려줄때 Model을 통해 운반
+    public String findAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList", memberDTOList);
+        return "list";
     }
 
 }
