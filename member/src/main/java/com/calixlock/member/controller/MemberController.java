@@ -39,6 +39,11 @@ public class MemberController {
 //        return "index";
         return "login"; // 회원가입 후 작업
     }
+
+    @GetMapping("/member/login")
+    public String loginForm() {
+        return "login";
+    } // resources/templates/login.html 반환
     // 로그인 연장기능 session
     @PostMapping("/member/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
