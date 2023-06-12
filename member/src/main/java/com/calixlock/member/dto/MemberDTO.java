@@ -1,5 +1,6 @@
 package com.calixlock.member.dto;
 
+import com.calixlock.member.entity.MemberEntity;
 import lombok.*;
 
 @Getter
@@ -12,4 +13,13 @@ public class MemberDTO {
     private String memberEmail;
     private String memberPassword;
     private String memberName;
+
+    // entity > dto 객체 변환 및 데이터 전환
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        return memberDTO;
+    }
 }

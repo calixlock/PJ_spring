@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor // 객체 주입 방식
 public class MemberController {
@@ -37,4 +39,20 @@ public class MemberController {
 //        return "index";
         return "login"; // 회원가입 후 작업
     }
+    // 로그인 연장기능 session
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+//        System.out.println("memberDTO = " + memberDTO);
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null){
+            // login 성공
+            session.setAttribute("loginEmail",loginResult.getMemberEmail());
+            return "main";
+        }else {
+            // login 실패
+            return "login";
+        }
+
+    }
+
 }
